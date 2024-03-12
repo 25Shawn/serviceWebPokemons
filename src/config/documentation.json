@@ -1,0 +1,295 @@
+{
+    "openapi" : "3.1.0",
+    "info" : {
+        "title":"API Pokemon",
+        "summary": "Cette API permet de récupérer des informations sur les pokémons",
+        "description": "Cette API permet d'afficher, de modifier,de supprimer et d'ajouter des pokemons dans la base de données",
+        "contact" : {
+            "name" : "API Support",
+            "url" : "http://www.api-support.com",
+            "email" : "support@apiPokemon.com"
+        },
+        "version" : "1.0.0"
+    },
+    "servers" : [ 
+        {
+            "url" : "http://localhost:3000",
+            "description" : "Serveur de developpement"
+        },
+        {
+            "url" : "http://apiPokemon.com",
+            "description" : "Serveur en ligne"
+        }
+
+    ],
+    "paths" : {
+        "/api/pokemons/{id}" : { 
+            "get" : {
+                "description" : "Récupérer un pokemon en fonction de son id",
+                "summary" : "Récupérer un pokemon",
+                "parameters" : [
+                    {
+                        "name" : "id",
+                        "in" : "path",
+                        "required" : true,
+                        "description" : "Identifiant du pokemon",
+                        "schema" : {
+                            "type" : "integer"
+                        }
+                    }
+                ],
+                "responses" : {
+                    "200" : {
+                        "description" : "Pokemon trouvé",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "type" : "array",
+                                    "items" : {
+                                        "$ref" : "#/components/schemas/Pokemon"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description" : "Pokemon introuvable"
+                    },
+                    "500" : {
+                        "description" : "Echec lors de la récupération du pokemon"
+                    }
+                }
+            },
+            "put" : {
+                "description" : "Modifier un pokemon",
+                "summary" : "Modifier un pokemon",
+
+                "parameters" : [
+                    {
+                        "name" : "id",
+                        "in" : "path",
+                        "required" : true,
+                        "description" : "Identifiant du pokemon",
+                        "schema" : {
+                            "type" : "integer"
+                        }
+                    },
+                    {
+                        "name" : "pokemon",
+                        "in" : "body",
+                        "required" : true,
+                        "description" : "Nom du pokemon",
+                        "schema" : {
+                            "type": "varchar(64)"
+                        }
+                    },
+                    {
+                        "name" : "type_primaire",
+                        "in" : "body",
+                        "required" : true,
+                        "description" : "Type primaire du pokemon",
+                        "schema" : {
+                            "type": "varchar(16)"
+                        }
+                    },
+                    {
+                        "name" : "type_secondaire",
+                        "in" : "body",
+                        "required" : true,
+                        "description" : "Type secondaire du pokemon",
+                        "schema" : {
+                            "type": "varchar(8)"
+                        }
+                    },
+                    {
+                        "name" : "pv",
+                        "in" : "body",
+                        "required" : false,
+                        "description" : "Points de vie du pokemon",
+                        "schema" : {
+                            "type": "integer"
+                        }
+
+                    },
+                    {
+                        "name" : "attaque",
+                        "in" : "body",
+                        "required" : false,
+                        "description" : "Attaque du pokemon",
+                        "schema" : {
+                            "type": "integer"
+                        }
+
+                    },
+                    {
+                        "name" : "defense",
+                        "in" : "body",
+                        "required" : false,
+                        "description" : "Defense du pokemon",
+                        "schema" : {
+                            "type": "integer"
+                        }
+
+                    }
+                ],
+                "responses" : {
+                    "200" : {
+                        "description" : "Le Pokemon a été modifié avec succès"
+                    },
+                    "400" : {
+                        "description" : "Le format de la requête est invalide"
+                    },
+                    "404" : {
+                        "description" : "Le pokemon n'existe pas dans la base de données"
+                    },
+                    "500" : {
+                        "description" : "Echec lors de la modification du pokemon"
+                    }
+                }
+            },
+            "delete" : {
+                "description" : "Supprimer un pokemon",
+                "summary" : "Supprimer un pokemon",
+
+                "parameters" : [
+                    {
+                        "name" : "id",
+                        "in" : "path",
+                        "required" : true,
+                        "description" : "Identifiant du pokemon",
+                        "schema" : {
+                            "type" : "integer"
+                        }
+                    }
+                ],
+                "responses" : {
+                    "200" : {
+                        "description" : "Le Pokemon a été supprimé avec succès"
+                    },
+                    "404" : {
+                        "description" : "Le pokemon n'existe pas dans la base de données"
+                    },
+                    "500" : {
+                        "description" : "Echec lors de la suppression du pokemon"
+                    }
+                }
+            }
+        },  
+        "/api/pokemons/liste" : {
+            "get" : {
+                    "description" : "Récupérer la liste des pokemons",
+                    "summary" : "Récupérer la liste des pokemons",
+                    "parameters" : [
+                        {
+                            "name" : "page",
+                            "in" : "query",
+                            "required" : true,
+                            "description" : "Numéro de la page",
+                            "schema" : {
+                                "type" : "integer"
+                            }
+                        },
+                        {
+                            "name" : "type",
+                            "in" : "query",
+                            "required" : true,
+                            "description" : "Type primaire du pokemon",
+                            "schema" : {
+                                "type" : "string"
+                            }
+                        }
+                        
+                    ],
+                "responses" : {
+                    "200" : {
+                        "description" : "Liste des pokemons",
+                            "content" : {
+                                "application/json" : {
+                                    "schema" : {
+                                        
+                                        "$ref" : "#/components/schemas/Pokemon"
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        },
+            "/api/pokemons" : {
+                "post" : {
+                    "description" : "Ajouter un pokemon",
+                    "summary" : "Ajouter un pokemon",
+                    "parameters" : [
+                        {
+                            "name" : "pokemon",
+                            "in" : "body",
+                            "required" : true,
+                            "description" : "Nom du pokemon",
+                            "schema" : {
+                                "type": "varchar(64)"
+                            }
+                        },
+                        {
+                            "name" : "type_primaire",
+                            "in" : "body",
+                            "required" : true,
+                            "description" : "Type primaire du pokemon",
+                            "schema" : {
+                                "type": "varchar(16)"
+                            }
+                        },
+                        {
+                            "name" : "type_secondaire",
+                            "in" : "body",
+                            "required" : true,
+                            "description" : "Type secondaire du pokemon",
+                            "schema" : {
+                                "type": "varchar(8)"
+                            }
+                        }
+                    ],
+                    "responses" : {
+                        "201" : {
+                            "description" : "Le Pokemon a été ajouté avec succès"
+                        },
+                        "400" : {
+                            "description" : "Le format de la requête est invalide"
+                        },
+                        "500" : {
+                            "description" : "Echec lors de la creation du pokemon"
+                        }
+                    }
+                }
+            }
+        },
+        "components" : {
+            "schemas" : {
+                "Pokemon" : {
+                    "type" : "object",
+                        "properties" : {
+                        "id" : {
+                            "type" : "integer"
+                        },
+                        "nom" : {
+                            "type" : "varchar(64)"
+                        },
+                        "type_primaire" : {
+                            "type" : "varchar(16)"
+                        },
+                        "type_secondaire" : {
+                            "type" : "varchar(8)"
+                        },
+                        "pv" : {
+                            "type" : "integer"
+                        },
+                        "attaque" : {
+                            "type" : "integer"
+                        },
+                        "defense" : {
+                            "type" : "integer"
+                        }
+                    }
+                }
+            }
+    }
+}   
