@@ -6,7 +6,7 @@ const pokemon = require('../controllers/controllerPokemons.js');
 // //liste des pokemons
 router.get('/liste', (req, res) => {
 
-    pokemon.AfficherLesPokemons(req, res);
+    pokemon.AfficherListePokemons(req, res);
 });
 
 //un pokemon
