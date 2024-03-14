@@ -16,13 +16,21 @@ router.get('/:id', (req, res) => {
 });
 
 // //ajouter un pokemon
-router.post('', pokemon.AjouterUnPokemon);
+router.post('', (req,res) => {
+    pokemon.AjouterUnPokemon(req, res);
+});
 
 //modifier un pokemon
-router.put('/:id', pokemon.ModifierUnPokemon);
+router.put('/:id',(req,res)=>{ 
+    pokemon.ModifierUnPokemon(req,res);
+
+});
 
 //supprimer un pokemon
-router.delete('/:id', pokemon.SupprimerUnPokemon);
+router.delete('/:id',(req,res)=>{
+
+    pokemon.SupprimerUnPokemon(req,res);
+});
 
 // On exporte le router pour pouvoir l'utiliser dans index.js
 module.exports = router;
