@@ -7,8 +7,16 @@ exports.AfficherUnPokemon = (req, res) => {
         .then(resultat => {
             if (resultat.length === 0) {
                 return res.status(404).send("Pokemon introuvable avec l'id ${params}");
+                
             } else {
-                return res.send(resultat);
+                return res.status(200).send({
+                    nom: resultat[0].nom,
+                    type_primaire: resultat[0].type_primaire,
+                    type_secondaire: resultat[0].type_secondaire,
+                    pv: resultat[0].pv,
+                    attaque: resultat[0].attaque,
+                    defense: resultat[0].defense,
+                });
             }
         })
         .catch(erreur => {
