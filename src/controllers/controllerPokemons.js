@@ -28,20 +28,40 @@ exports.AfficherUnPokemon = (req, res) => {
 exports.AfficherListePokemons = (req, res) => {
     const page = req.query.page;
     const offset = (page - 1) * 25;
-    const params = [req.query.type, offset];
 
-    pokemon.ListePokemon.RequeteListePokemons(params)
-        .then(resultat => {
-            if (resultat.length === 0) {
-               return res.status(404).send(`Aucun pokemon de type ${req.query.type} trouvé`);
-            } else {
-               return res.status(200).send(resultat);
-            }
-        })
-        .catch(erreur => {
-            console.log("Erreur: ", erreur);
-            return res.status(500).send("Echec lors de la récupération de la liste des pokemons");
-        });
+    // Vérifie si le type est spécifié dans la requête
+    if (!req.query.type) {
+        // Si aucun type n'est spécifié, ajuste les paramètres pour récupérer tous les Pokemons
+        const params = [offset];
+        // Exécute la requête pour récupérer tous les Pokemons
+        pokemon.ListePokemon.RequeteListePokemonsSansType(params)
+            .then(resultat => {
+                if (resultat.length === 0) {
+                   return res.status(404).send(`Aucun pokemon trouvé`);
+                } else {
+                   return res.status(200).send(resultat);
+                }
+            })
+            .catch(erreur => {
+                console.log("Erreur: ", erreur);
+                return res.status(500).send("Echec lors de la récupération de la liste des pokemons");
+            });
+    } else {
+        // Si un type est spécifié, procède normalement
+        const params = [req.query.type, offset];
+        pokemon.ListePokemon.RequeteListePokemons(params)
+            .then(resultat => {
+                if (resultat.length === 0) {
+                   return res.status(404).send(`Aucun pokemon de type ${req.query.type} trouvé`);
+                } else {
+                   return res.status(200).send(resultat);
+                }
+            })
+            .catch(erreur => {
+                console.log("Erreur: ", erreur);
+                return res.status(500).send("Echec lors de la récupération de la liste des pokemons");
+            });
+    }
 };
 
 
