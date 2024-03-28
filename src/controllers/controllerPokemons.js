@@ -26,15 +26,24 @@ exports.AfficherUnPokemon = (req, res) => {
 }
 
 exports.AfficherListePokemons = (req, res) => {
-    const page = req.query.page && !isNaN(req.query.page) ? parseInt(req.query.page) : 1;
-
+    const page = req.query.page;
     const offset = (page - 1) * 25;
-    const params = [req.query.type, offset];
+    let params;
+
+    if (req.query.type) {
+        params = [req.query.type, offset];
+    } else {
+        params = [null, offset];
+    }
 
     pokemon.ListePokemon.RequeteListePokemons(params)
         .then(resultat => {
             if (resultat.length === 0) {
-               return res.status(404).send(`Aucun pokemon de type ${req.query.type} trouvé`);
+                if (req.query.type) {
+                    return res.status(404).send(`Aucun pokemon de type ${req.query.type} trouvé`);
+                } else {
+                    return res.status(404).send("Aucun pokemon trouvé");
+                }
             } else {
                return res.status(200).send(resultat);
             }

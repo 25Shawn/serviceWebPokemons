@@ -39,7 +39,7 @@ class ListePokemon {
         return new Promise((resolve, reject) => {
             let requete = 'SELECT * FROM pokemon';
 
-            // Si le type_primaire est fourni, ajoute la condition WHERE
+            // Si le type est fourni, ajoute la condition WHERE
             if (params && params[0] !== undefined) {
                 requete += ' WHERE type_primaire = $1';
             }
