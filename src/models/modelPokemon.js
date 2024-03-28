@@ -40,11 +40,11 @@ class ListePokemon {
             let requete = 'SELECT * FROM pokemon';
 
             // Si le type est fourni, ajoute la condition WHERE
-            if (params && params[0] !== undefined) {
+            if (type) {
                 requete += ' WHERE type_primaire = $1';
             }
 
-            requete += ' LIMIT 25 OFFSET $' + (params ? params.length : 0) + 1;
+            requete += ' LIMIT 25 OFFSET $2';
 
             sql.query(requete, params, (erreur, resultat) => {
                 if (erreur) {
