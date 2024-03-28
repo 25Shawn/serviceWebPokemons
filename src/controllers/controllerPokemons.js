@@ -26,7 +26,8 @@ exports.AfficherUnPokemon = (req, res) => {
 }
 
 exports.AfficherListePokemons = (req, res) => {
-    const page = req.query.page;
+    const page = req.query.page && !isNaN(req.query.page) ? parseInt(req.query.page) : 1;
+
     const offset = (page - 1) * 25;
     const params = [req.query.type, offset];
 
