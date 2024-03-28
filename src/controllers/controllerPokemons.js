@@ -35,19 +35,7 @@ exports.AfficherListePokemons = (req, res) => {
             if (resultat.length === 0) {
                return res.status(404).send(`Aucun pokemon de type ${req.query.type} trouvé`);
             } else {
-               return res.status(200).send({
-                pokemon: [
-
-                    {
-                        nom: resultat[0].nom,
-                        type_primaire: resultat[0].type_primaire,
-                        type_secondaire: resultat[0].type_secondaire,
-                        pv: resultat[0].pv,
-                        attaque: resultat[0].attaque,
-                        defense: resultat[0].defense
-                    }
-                ]
-                });
+               return res.status(200).send(resultat);
             }
         })
         .catch(erreur => {
