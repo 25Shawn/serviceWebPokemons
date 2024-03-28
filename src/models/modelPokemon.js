@@ -29,31 +29,28 @@ class Pokemon{
     }
 }
 
-class ListePokemon {
-    constructor(type, page) {
+class ListePokemon{
+
+    constructor(type, page){
         this.type = type;
         this.page = page;
     }
 
     static RequeteListePokemons = (params) => {
-        return new Promise((resolve, reject) => {
-            let requete = 'SELECT * FROM pokemon';
 
-            // Si le type est fourni, ajoute la condition WHERE
-            if (type) {
-                requete += ' WHERE type_primaire = $1';
-            }
+        return new Promise((resolve,reject) => {
 
-            requete += ' LIMIT 25 OFFSET $2';
+            let requete = 'SELECT * FROM pokemon WHERE type_primaire = $1 LIMIT 25 OFFSET $2';
 
-            sql.query(requete, params, (erreur, resultat) => {
+            sql.query(requete,params, (erreur, resultat) => {
+
                 if (erreur) {
                     console.log("Erreur: ", erreur);
                     reject(erreur);
-                } else {
-                    console.log("Résultat de la requête pour la liste des pokemons de type", params ? params[0] : 'tous', ":", resultat);
-                    resolve(resultat.rows);
-                }
+                } 
+
+                console.log("Résultat de la requête pour la liste des pokemons de type", params[0], ":", resultat);
+                resolve(resultat.rows);
             });
         });
     }

@@ -28,22 +28,12 @@ exports.AfficherUnPokemon = (req, res) => {
 exports.AfficherListePokemons = (req, res) => {
     const page = req.query.page;
     const offset = (page - 1) * 25;
-    let params;
-
-    if (req.query.type) {
-        params = [req.query.type, offset];
-    } else {
-        params = [null, offset];
-    }
+    const params = [req.query.type, offset];
 
     pokemon.ListePokemon.RequeteListePokemons(params)
         .then(resultat => {
             if (resultat.length === 0) {
-                if (req.query.type) {
-                    return res.status(404).send(`Aucun pokemon de type ${req.query.type} trouvé`);
-                } else {
-                    return res.status(404).send("Aucun pokemon trouvé");
-                }
+               return res.status(404).send(`Aucun pokemon de type ${req.query.type} trouvé`);
             } else {
                return res.status(200).send(resultat);
             }
