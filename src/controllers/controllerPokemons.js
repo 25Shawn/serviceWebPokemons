@@ -67,7 +67,7 @@ exports.AfficherListePokemons = (req, res) => {
 
 exports.AjouterUnPokemon = (req, res) => {
     
-    const params = [req.query.nom, req.query.type_primaire, req.query.type_secondaire];
+    const params = [req.query.nom, req.query.type_primaire, req.query.type_secondaire, req.query.pv, req.query.attaque, req.query.defense];
     
     pokemon.AjouterUnPokemon.RequeteAjouterUnPokemon(params)
     
@@ -102,7 +102,7 @@ exports.AjouterUnPokemon = (req, res) => {
 
 exports.ModifierUnPokemon = (req, res) => {
     
-    const params = [req.query.nom, req.query.type_primaire, req.query.type_secondaire,req.query.id];
+    const params = [req.query.nom, req.query.type_primaire, req.query.type_secondaire, req.query.pv, req.query.attaque, req.query.defense,req.query.id];
 
     pokemon.ModifierUnPokemon.RequeteModifierUnPokemon(params)
     

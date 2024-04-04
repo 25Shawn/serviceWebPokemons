@@ -65,15 +65,18 @@ class ListePokemon {
 }
 
 class AjouterUnPokemon{
-    constructor(nom, type_primaire, type_secondaire){
+    constructor(nom, type_primaire, type_secondaire, pv,attaque,defense){
         this.nom = nom;
         this.type_primaire = type_primaire;
         this.type_secondaire = type_secondaire;
+        this.pv = pv;
+        this.attaque = attaque;
+        this.defense = defense;
     }
 
     static RequeteAjouterUnPokemon = (params) => {
         return new Promise((resolve, reject) => {
-            const requete = `INSERT INTO pokemon (nom, type_primaire, type_secondaire,pv,attaque,defense) VALUES ($1,$2,$3,0,0,0)`;
+            const requete = `INSERT INTO pokemon (nom, type_primaire, type_secondaire,pv,attaque,defense) VALUES ($1,$2,$3,$4,$5,$6)`;
 
             sql.query(requete, params, (erreur, resultat) => {
                 if (erreur) {
@@ -89,16 +92,20 @@ class AjouterUnPokemon{
 }
 
 class ModifierUnPokemon{
-    constructor(nom, type_primaire, type_secondaire, id){
+    constructor(nom, type_primaire, type_secondaire, pv,attaque,defense, id){
         this.nom = nom;
         this.type_primaire = type_primaire;
         this.type_secondaire = type_secondaire;
+        this.pv = pv;
+        this.attaque = attaque;
+        this.defense = defense;
         this.id = id;
     }
+    
 
     static RequeteModifierUnPokemon = (params) => {
         return new Promise((resolve, reject) => {
-            const requete = `UPDATE pokemon SET nom=$1, type_primaire=$2, type_secondaire=$3 WHERE id=$4`;
+            const requete = `UPDATE pokemon SET nom=$1, type_primaire=$2, type_secondaire=$3, pv=$4, attaque=$5, defense=$6 WHERE id=$7`;
 
             sql.query(requete, params, (erreur, resultat) => {
                 if (erreur) {
