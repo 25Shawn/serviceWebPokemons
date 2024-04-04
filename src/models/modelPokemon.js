@@ -112,7 +112,7 @@ class ModifierUnPokemon{
                     console.log("Erreur: ", erreur);
                     reject(erreur);
                 } else {
-                    resolve(resultat.rows);
+                    resolve(resultat.rows[0].id);
                 }
             });
         });
@@ -140,4 +140,4 @@ class SupprimerUnPokemon{
     }
 }
 
-module.exports = {Pokemon, ListePokemon, AjouterUnPokemon, ModifierUnPokemon};
+module.exports = {Pokemon, ListePokemon, AjouterUnPokemon, ModifierUnPokemon, SupprimerUnPokemon};

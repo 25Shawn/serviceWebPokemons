@@ -107,7 +107,7 @@ exports.ModifierUnPokemon = (req, res) => {
     pokemon.ModifierUnPokemon.RequeteModifierUnPokemon(params)
     
         .then(resultat => {
-            if(resultat.length === 0){
+            if(resultat.length == 0){
                 return res.status(404).send("Le pokemon id ${req.params.id} n'existe pas dans la base de données");
             }
             else {
