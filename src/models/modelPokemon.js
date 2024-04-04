@@ -91,8 +91,8 @@ class AjouterUnPokemon{
 
 }
 
-class ModifierUnPokemon{
-    constructor(nom, type_primaire, type_secondaire, pv,attaque,defense, id){
+class ModifierUnPokemon {
+    constructor(nom, type_primaire, type_secondaire, pv, attaque, defense, id) {
         this.nom = nom;
         this.type_primaire = type_primaire;
         this.type_secondaire = type_secondaire;
@@ -101,7 +101,6 @@ class ModifierUnPokemon{
         this.defense = defense;
         this.id = id;
     }
-    
 
     static RequeteModifierUnPokemon = (params) => {
         return new Promise((resolve, reject) => {
@@ -112,7 +111,7 @@ class ModifierUnPokemon{
                     console.log("Erreur: ", erreur);
                     reject(erreur);
                 } else {
-                    resolve(resultat.rows[0].id);
+                    resolve(resultat.rowCount);
                 }
             });
         });
