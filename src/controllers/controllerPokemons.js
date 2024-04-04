@@ -102,21 +102,21 @@ exports.AjouterUnPokemon = (req, res) => {
 
 exports.ModifierUnPokemon = (req, res) => {
     
-    const params = [req.query.nom, req.query.type_primaire, req.query.type_secondaire, req.query.pv, req.query.attaque, req.query.defense, req.query.id];
+    const params = [req.query.nom, req.query.type_primaire, req.query.type_secondaire, req.query.pv, req.query.attaque, req.query.defense, req.params.id];
 
     pokemon.ModifierUnPokemon.RequeteModifierUnPokemon(params)
     
         .then(resultat => {
             if(resultat === 0){
-                return res.status(404).send(`Le pokemon avec l'id ${req.query.id} n'existe pas dans la base de données`);
+                return res.status(404).send(`Le pokemon avec l'id ${req.params.id} n'existe pas dans la base de données`);
             }
             else {
-                return res.status(200).send(`Le pokemon avec l'id ${req.query.id} a été modifié avec succès`);
+                return res.status(200).send(`Le pokemon avec l'id ${req.params.id} a été modifié avec succès`);
             }
         })
         .catch(erreur => {
             console.log("Erreur: ", erreur);
-            return res.status(500).send(`Echec lors de la modification du pokemon avec l'id ${req.query.id}`);
+            return res.status(500).send(`Echec lors de la modification du pokemon avec l'id ${req.params.id}`);
         });
 }
 
