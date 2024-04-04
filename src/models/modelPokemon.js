@@ -83,7 +83,7 @@ class AjouterUnPokemon{
                     console.log("Erreur: ", erreur);
                     reject(erreur);
                 } else {
-                    resolve(resultat.rows);
+                    resolve(resultat.rows[0].id);
                 }
             });
         });

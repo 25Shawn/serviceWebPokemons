@@ -72,7 +72,7 @@ exports.AjouterUnPokemon = (req, res) => {
     pokemon.AjouterUnPokemon.RequeteAjouterUnPokemon(params)
     
         .then(resultat => {
-            if(resultat.length === 0){
+            if(resultat.length == 0){
                 return res.status(404).send("Le pokemon id ${req.params.id} n'a pas été ajouté");
             }
             else {
